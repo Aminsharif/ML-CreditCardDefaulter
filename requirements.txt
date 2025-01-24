@@ -12,4 +12,7 @@ types-PyYAML
 Flask
 Flask-Cors
 ipykernel
+seaborn
+imbalanced-learn
+kneed
 -e .
