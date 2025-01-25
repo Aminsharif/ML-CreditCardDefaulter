@@ -1,6 +1,9 @@
 from ml_creditcard_defaulter.constants import *
 from ml_creditcard_defaulter.utils.common import read_yaml, create_directories
-from ml_creditcard_defaulter.entity.config_entity import (DataIngestionConfig, DataValidationConfig, DataTransformationConfig)
+from ml_creditcard_defaulter.entity.config_entity import (DataIngestionConfig, 
+                                                          DataValidationConfig, 
+                                                          DataTransformationConfig,
+                                                          ModelTrainerConfig)
 
 
 class ConfigurationManager:
@@ -56,3 +59,22 @@ class ConfigurationManager:
         )
 
         return data_transformation_config
+    
+    def get_model_trainer_config(self) -> ModelTrainerConfig:
+        config = self.config.model_trainer
+        params = self.params
+        params.param_grid["var_smoothing"] = [float(v) for v in params.param_grid["var_smoothing"]]
+
+        create_directories([config.root_dir])
+
+        model_trainer_config = ModelTrainerConfig(
+            root_dir=config.root_dir,
+            train_data_path = config.train_data_path,
+            model_kmeans_name = config.model_kmeans_name,
+            model_xabost_name = config.model_xabost_name,
+            elbow_png=config.elbow_png,
+            param_grid=params.param_grid,
+            param_grid_xgboost=params.param_grid_xgboost
+        )
+
+        return model_trainer_config

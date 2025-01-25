@@ -15,4 +15,5 @@ ipykernel
 seaborn
 imbalanced-learn
 kneed
+xgboost
 -e .
