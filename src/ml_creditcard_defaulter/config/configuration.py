@@ -65,7 +65,7 @@ class ConfigurationManager:
         params = self.params
         params.param_grid["var_smoothing"] = [float(v) for v in params.param_grid["var_smoothing"]]
 
-        create_directories([config.root_dir])
+        create_directories([config.root_dir, config.model_dir])
 
         model_trainer_config = ModelTrainerConfig(
             root_dir=config.root_dir,
@@ -74,7 +74,8 @@ class ConfigurationManager:
             model_xabost_name = config.model_xabost_name,
             elbow_png=config.elbow_png,
             param_grid=params.param_grid,
-            param_grid_xgboost=params.param_grid_xgboost
+            param_grid_xgboost=params.param_grid_xgboost,
+            model_dir=config.model_dir,
         )
 
         return model_trainer_config

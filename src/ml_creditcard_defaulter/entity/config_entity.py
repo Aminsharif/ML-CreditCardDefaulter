@@ -30,4 +30,5 @@ class ModelTrainerConfig:
     elbow_png:Path
     param_grid:dict
     param_grid_xgboost: dict
+    model_dir: Path
 

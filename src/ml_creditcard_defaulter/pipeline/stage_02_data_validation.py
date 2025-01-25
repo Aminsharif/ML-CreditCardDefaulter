@@ -11,4 +11,4 @@ class DataValidationTrainingPipeline:
         config = ConfigurationManager()
         data_validation_config = config.get_data_validation_config()
         data_validation = DataValiadtion(config=data_validation_config)
-        data_validation.validate_all_columns()
+        data_validation.validate_all_columns(data_validation_config.unzip_data_dir, data_validation_config.STATUS_FILE)

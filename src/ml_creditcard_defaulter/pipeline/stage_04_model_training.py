@@ -18,10 +18,13 @@ class DataModelTrainingPipeline:
         model_training_config = config.get_model_trainer_config()
         model_training = ModelTrainer(config=model_training_config)
         data_transformation = DataTransformation(config=model_training_config)
-        X = pd.read_csv(model_training_config.train_data_path)
+        data = pd.read_csv(model_training_config.train_data_path)
+
+        X = data.drop(['Labels'], axis=1)
         number_of_clusters = model_training.elbow_plot(X)
         X = model_training.create_clusters(X, number_of_clusters)
-
+        
+        X['Labels'] = data['Labels']
         list_of_clusters=X['Cluster'].unique()
         for i in list_of_clusters:
             cluster_data=X[X['Cluster']==i] # filter the data for one cluster
@@ -37,5 +40,5 @@ class DataModelTrainingPipeline:
             test_x = data_transformation.scale_numerical_columns(x_test)
             best_model_name,best_model=model_training.get_best_model(train_x,y_train,test_x,y_test)
             print('......................................' )
-            joblib.dump(best_model, os.path.join(model_training_config.root_dir, best_model_name+str(i)))
+            joblib.dump(best_model, os.path.join(model_training_config.model_dir, best_model_name+str(i)))
             logger.info(f'Successful End of Training with best model {best_model_name+str(i)}')

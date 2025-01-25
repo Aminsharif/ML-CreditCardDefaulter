@@ -47,8 +47,7 @@ class ModelTrainer:
             #self.data = self.data[~self.data.isin([np.nan, np.inf, -np.inf]).any(1)]
             y_kmeans=kmeans.fit_predict(data) #  divide data into clusters
 
-            joblib.dump(y_kmeans, os.path.join(self.config.root_dir, self.config.model_kmeans_name)) # saving the KMeans model to directory
-                                                                                    # passing 'Model' as the functions need three parameters
+            joblib.dump(kmeans, os.path.join(self.config.root_dir, self.config.model_kmeans_name)) # saving the KMeans model to directory                                                                   # passing 'Model' as the functions need three parameters
             data['Cluster']=y_kmeans  # create a new column in dataset for storing the cluster information
             logger.info( 'succesfully created clusters. Exited the create_clusters method of the KMeansClustering class')
             return data
