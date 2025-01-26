@@ -7,7 +7,7 @@ from sklearn.model_selection import train_test_split
 import joblib
 from ml_creditcard_defaulter import logger
 
-STAGE_NAME = "Data validation stage"
+STAGE_NAME = "Model training stage"
 
 class DataModelTrainingPipeline:
     def __init__(self):
@@ -40,5 +40,5 @@ class DataModelTrainingPipeline:
             test_x = data_transformation.scale_numerical_columns(x_test)
             best_model_name,best_model=model_training.get_best_model(train_x,y_train,test_x,y_test)
             print('......................................' )
-            joblib.dump(best_model, os.path.join(model_training_config.model_dir, best_model_name+str(i)))
+            joblib.dump(best_model, os.path.join(model_training_config.model_dir, best_model_name+str(i)+'.pkl'))
             logger.info(f'Successful End of Training with best model {best_model_name+str(i)}')

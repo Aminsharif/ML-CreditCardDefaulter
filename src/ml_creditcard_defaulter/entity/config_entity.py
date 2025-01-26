@@ -31,4 +31,14 @@ class ModelTrainerConfig:
     param_grid:dict
     param_grid_xgboost: dict
     model_dir: Path
-
+    
+@dataclass(frozen=True)
+class ModelPredictionConfig:
+    root_dir: Path
+    predict_default_data_path: Path
+    predict_data_path: Path
+    predict_validation_status_file:Path
+    all_schema: dict
+    predict_kmeans_model_path: Path
+    model_path:Path
+    prediction_output:Path

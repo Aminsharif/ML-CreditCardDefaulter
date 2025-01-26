@@ -3,7 +3,8 @@ from ml_creditcard_defaulter.utils.common import read_yaml, create_directories
 from ml_creditcard_defaulter.entity.config_entity import (DataIngestionConfig, 
                                                           DataValidationConfig, 
                                                           DataTransformationConfig,
-                                                          ModelTrainerConfig)
+                                                          ModelTrainerConfig,
+                                                          ModelPredictionConfig)
 
 
 class ConfigurationManager:
@@ -79,3 +80,21 @@ class ConfigurationManager:
         )
 
         return model_trainer_config
+    
+    def get_model_predict_config(self) -> ModelPredictionConfig:
+        config = self.config.model_prediction
+        schema = self.schema.ColName
+        
+        create_directories([config.root_dir, config.prediction_output])
+
+        model_predict_config = ModelPredictionConfig(
+            root_dir=config.root_dir,
+            predict_default_data_path=config.predict_default_data_path,
+            predict_data_path = config.predict_data_path,
+            predict_validation_status_file = config.predict_validation_status_file,
+            all_schema=schema,
+            predict_kmeans_model_path = config.predict_kmeans_model_path,
+            model_path = config.model_path,
+            prediction_output = config.prediction_output,
+        )
+        return model_predict_config

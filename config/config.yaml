@@ -32,3 +32,4 @@ model_prediction:
   predict_validation_status_file: artifacts/model_prediction/status.txt
   predict_kmeans_model_path: artifacts/model_trainer/model_kmeans.pkl
   model_path: artifacts/model_trainer/models
+  prediction_output: artifacts/model_prediction/output
